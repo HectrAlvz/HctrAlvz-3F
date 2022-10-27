@@ -1,5 +1,5 @@
 //
-// Tree
+// tree
 //
 
 /*
@@ -30,7 +30,7 @@ let root={
 
 //
 // imports
-// Tree
+// tree
 //
 
  function traverse(n){

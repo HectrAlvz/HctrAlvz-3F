@@ -1,6 +1,6 @@
 //
 // imports
-// Tree
+// tree
 //
 
 function traverse(n){
