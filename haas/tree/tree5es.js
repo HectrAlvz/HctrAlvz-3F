@@ -113,7 +113,3 @@ console.log('- - - - - - - - -')
 console.log('Preorden Inverso: ')
 root.preordenInv()
 console.log('-----------------')
-
-
-
-
