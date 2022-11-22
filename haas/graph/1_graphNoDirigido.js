@@ -3,60 +3,74 @@
 // Es 5
 
 //*
-class graphNoDirigido {
-    constructor(v) { // v = vertices
-        this.vertices = v // Numero de vertices
-        this.edges = 0 // Numero de aristas
-        this.adj = [] // Arreglo de aristas
+//
+// your undirected graph solution here
+//
 
-        for (let i = 0; i < this.vertices; ++i) { // Inicializa el arreglo de aristas
-            this.adj[i] = [] // con arreglos vacios
-            this.adj[i].push("") // para evitar undefined
+class graphNoDirigido {
+    constructor() {
+        this.nodes = []
+        this.edges = 0
+        this.adj = {}
+    }
+
+    addNode(v){
+        for (let i = 0; i < v ; i++) {
+            this.nodes.push(i)
+            this.adj[i] = []
         }
     }
 
-    addEdge(v, w) { // v = vertice, w = arista
-        this.adj[v].push(w) // Agrega w a la lista de v
-        this.adj[w].push(v) // Agrega v a la lista de w
-        this.edges++ // Incrementa el numero de aristas
+    addEdge(v, w) {
+        this.adj[v].push(w)
+        this.adj[w].push(v)
+        this.edges++
     }
 
-    deleteEdge(v, w) { // v = vertice, w = arista
-        this.adj[v].splice(this.adj[v].indexOf(w), 1) // Elimina w de la lista de v
-        this.adj[w].splice(this.adj[w].indexOf(v), 1) // Elimina v de la lista de w
-        this.edges-- // Decrementa el numero de aristas
-    }
-
-    showGraph() { // Muestra el grafo
-        for (let i = 0; i < this.vertices; ++i) { // Recorre el arreglo de aristas
-            process.stdout.write(`${i} -> `) // Muestra el vertice
-            for (let j = 0; j < this.vertices; ++j) { // Recorre la lista de aristas
-                if (this.adj[i][j] !== undefined) // Si la arista existe
-                    process.stdout.write(`${this.adj[i][j]} `) // Muestra la arista
-            }
+    showGraph() {
+        for (let i = 0; i < this.nodes.length; i++) {
+            console.log('node: ', i, ' -> ', this.adj[i])
+            // console.log(i + " -> ")
+            // for (let j = 0; j < this.adj[i].length; j++) {
+            //     console.log(this.adj[i][j] + " ")
+            // }
             console.log()
         }
-        console.log()
     }
 
-    // Funcion busqueda DFS
-    dfs(v) { // v = vertice
-        this.marked = [] // Arreglo de vertices visitados
-        for (let i = 0; i < this.vertices; ++i) // Inicializa el arreglo de vertices visitados
-            this.marked[i] = false // con false
-        this.dfsVisit(v) // Llama a la funcion de busqueda DFS
-    }
-
-    dfsVisit(v) { // v = vertice
-        this.marked[v] = true // Marca el vertice como visitado
-        if (this.adj[v] !== undefined) // Si el vertice tiene aristas
-            console.log(`Visited vertex: ${v}`) // Muestra el vertice
-        for (let w of this.adj[v]) { // Recorre la lista de aristas
-            if (!this.marked[w]) // Si la arista no ha sido visitada
-                this.dfsVisit(w) // Llama a la funcion de busqueda DFS
-        }
+    // Esto hace que si v y w son adyacentes,
+    // se elimine la arista entre ellos.
+    removeEdge(v, w) {
+        this.adj[v] = this.adj[v].filter(
+            u => u !== w // Filtra los elementos de v que no sean w
+        )
+        this.adj[w] = this.adj[w].filter(
+            u => u !== v // Filtra los elementos de w que no sean v
+        )
     }
 }
+
+let g = new graphNoDirigido()
+
+g.addNode(5) // 5 nodos
+
+g.addEdge(0, 1) // 0 y 1 son adyacentes
+g.addEdge(0, 2) // 0 y 2 son adyacentes
+g.addEdge(1, 3) // 1 y 3 son adyacentes
+g.addEdge(2, 4) // 2 y 4 son adyacentes
+
+console.log('Show Graph')
+
+g.showGraph() // muestra el grafo
+console.log()
+
+console.log('Remove Edge 0, 1')
+
+g.removeEdge(0, 1) // elimina la arista entre 0 y 1
+console.log()
+g.showGraph() // muestra el grafo
+
+
 //*/
 
 /*
@@ -150,19 +164,3 @@ function graphNoDirigido(v) { // v = vertices
     }
 }
 //*/
-
-let g = new graphNoDirigido(5)
-g.addEdge(0, 1)
-g.addEdge(0, 2)
-g.addEdge(1, 3)
-g.addEdge(2, 4)
-
-console.log("Grafo:")
-g.showGraph()
-
-console.log("Grafo sin arista 0-2:")
-g.deleteEdge(0, 2)
-g.showGraph()
-
-
-g.dfs(0)
