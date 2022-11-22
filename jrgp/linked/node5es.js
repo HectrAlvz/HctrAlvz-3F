@@ -1,12 +1,8 @@
-
-class Node {
-    constructor(d, n = null){
-	this._data=d
-	this._next=n
-    }
-  
-    get data(){
-	return this._data
-    }
-
+export default
+//
+// ES5
+//
+function Node(d,n=null) {
+    this.data = d//data
+    this.next=n//link
 }
